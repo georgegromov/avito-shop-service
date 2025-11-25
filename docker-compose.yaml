@@ -1,0 +1,48 @@
+name: avito-shop-service
+
+services:
+  avito-shop-service:
+    build: .
+    container_name: avito_shop_service
+    ports:
+      - "8080:8080"
+    depends_on:
+      - migrate
+    networks:
+      - internal
+  avito-shop-database:
+    env_file: .env
+    container_name: avito_shop_database
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DBNAME}
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - internal
+  migrate:
+    image: migrate/migrate
+    depends_on:
+      - avito-shop-database
+    volumes:
+      - ./migrations:/migrations
+    command:
+      [
+        "-path",
+        "/migrations",
+        "-database",
+        "postgres://postgres:postgres@avito-shop-database:5432/avito_shop?sslmode=disable",
+        "up",
+      ]
+    networks:
+      - internal
+    restart: "on-failure:3"
+
+volumes:
+  pg_data:
+
+networks:
+  internal:
