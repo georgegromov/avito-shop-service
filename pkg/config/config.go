@@ -85,7 +85,7 @@ func MustLoad() *Config {
 		Postgres: PostgresConfig{
 			Host:     v.GetString("POSTGRES_HOST"),
 			Port:     v.GetString("POSTGRES_PORT"),
-			Username: v.GetString("POSTGRES_USERNAME"),
+			Username: v.GetString("POSTGRES_USER"),
 			Password: v.GetString("POSTGRES_PASSWORD"),
 			DBName:   v.GetString("POSTGRES_DBNAME"),
 			SSLMode:  v.GetString("POSTGRES_SSLMODE"),

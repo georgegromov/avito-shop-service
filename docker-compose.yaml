@@ -24,11 +24,17 @@ services:
       - "5432:5432"
     networks:
       - internal
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 2s
+      timeout: 3s
+      retries: 10
   avito_shop_migrate:
     image: migrate/migrate
     container_name: avito_shop_migrate
     depends_on:
-      - avito_shop_database
+      avito_shop_database:
+        condition: service_healthy
     volumes:
       - ./migrations:/migrations
     command:
@@ -36,7 +42,7 @@ services:
         "-path",
         "/migrations",
         "-database",
-        "postgres://postgres:postgres@avito-shop-database:5432/avito_shop?sslmode=disable",
+        "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DBNAME}?sslmode=disable",
         "up",
       ]
     networks:
