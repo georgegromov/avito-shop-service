@@ -22,7 +22,7 @@ run:
 # -----------------------------
 
 up:
-	$(DOCKER_COMPOSE_CMD) up --build -d
+	$(DOCKER_COMPOSE_CMD) up --build
 
 down:
 	$(DOCKER_COMPOSE_CMD) down

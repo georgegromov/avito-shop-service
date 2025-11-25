@@ -1,16 +1,17 @@
 name: avito-shop-service
 
 services:
-  avito-shop-service:
+  avito_shop_service:
     build: .
     container_name: avito_shop_service
     ports:
       - "8080:8080"
     depends_on:
-      - migrate
+      - avito_shop_migrate
     networks:
       - internal
-  avito-shop-database:
+  avito_shop_database:
+    image: postgres:17
     env_file: .env
     container_name: avito_shop_database
     environment:
@@ -23,10 +24,11 @@ services:
       - "5432:5432"
     networks:
       - internal
-  migrate:
+  avito_shop_migrate:
     image: migrate/migrate
+    container_name: avito_shop_migrate
     depends_on:
-      - avito-shop-database
+      - avito_shop_database
     volumes:
       - ./migrations:/migrations
     command:
