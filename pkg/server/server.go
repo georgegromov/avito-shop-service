@@ -18,7 +18,7 @@ type HttpServer struct {
 func New(log *slog.Logger, cfg *config.HttpServerConfig, handler http.Handler) *HttpServer {
 
 	srv := &http.Server{
-		Addr:           cfg.Host + ":" + cfg.Port,
+		Addr:           ":" + cfg.Port,
 		Handler:        handler,
 		ReadTimeout:    cfg.ReadTimeout,
 		WriteTimeout:   cfg.WriteTimeout,
