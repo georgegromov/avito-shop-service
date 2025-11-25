@@ -1,7 +1,7 @@
 package validator
 
 import (
-	"avito-shop-service/internal/infra/http"
+	infrahttp "avito-shop-service/internal/infra/http"
 	"context"
 
 	"github.com/go-playground/validator/v10"
@@ -25,4 +25,4 @@ func (v *Validator) Validate(ctx context.Context, s interface{}) error {
 	return v.validate.StructCtx(ctx, s)
 }
 
-var _ http.Validator = (*Validator)(nil)
+var _ infrahttp.Validator = (*Validator)(nil)

@@ -7,6 +7,8 @@ import (
 
 type Amount uint64
 
+var InitWalletBalance Amount = 1000
+
 type Wallet struct {
 	UserID    user.UserID
 	Balance   Amount

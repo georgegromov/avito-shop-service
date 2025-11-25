@@ -11,6 +11,11 @@ type Item struct {
 	Price Price
 }
 
+type BuyItemRequestDTO struct {
+	ItemID   ItemID `json:"item_id" binding:"required" validate:"required"`
+	Quantity uint   `json:"quantity" binding:"required,min=1" validate:"required,min=1"`
+}
+
 func New(name string, price Price) (*Item, error) {
 	if name == "" {
 		return nil, ErrInvalidName

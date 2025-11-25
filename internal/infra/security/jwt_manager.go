@@ -11,6 +11,7 @@ type JwtManager interface {
 }
 
 var (
+	ErrGenerateToken        = errors.New("an error occurred while generating token")
 	ErrInvalidToken         = errors.New("invalid token")
 	ErrInvalidSigningMethod = errors.New("invalid signing method")
 )

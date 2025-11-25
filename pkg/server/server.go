@@ -33,6 +33,13 @@ func New(log *slog.Logger, cfg *config.HttpServerConfig, handler http.Handler) *
 	}
 }
 
+func (h *HttpServer) MustStart() {
+	const op = "server.HttpServer.MustStart"
+	if err := h.Start(); err != nil {
+		panic(fmt.Sprintf("%s: an error occurred: %v", op, err))
+	}
+}
+
 func (h *HttpServer) Start() error {
 	const op = "server.HttpServer.Start"
 

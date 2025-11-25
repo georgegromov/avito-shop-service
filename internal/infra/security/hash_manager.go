@@ -8,5 +8,6 @@ type HashManager interface {
 }
 
 var (
+	ErrHashPassword  = errors.New("an error occurred while hashing password")
 	ErrEmptyPassword = errors.New("password is empty")
 )
